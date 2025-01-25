@@ -34,6 +34,14 @@ class MyTheme {
       color: ColorManager.white,
       shadowColor: ColorManager.white,
     ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+      ),
+    ),
   );
 
   static ThemeData dark = ThemeData();

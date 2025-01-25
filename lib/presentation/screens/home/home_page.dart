@@ -5,6 +5,7 @@ import 'package:todo_app/core/utils/app_style.dart';
 import 'package:todo_app/core/utils/color_manager.dart';
 import 'package:todo_app/presentation/screens/home/tabs/settings_tab/settings_page.dart';
 import 'package:todo_app/presentation/screens/home/tabs/tasks_tab/tasks_page.dart';
+import 'package:todo_app/presentation/screens/home/theme_bottom_sheet.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody:true,
       appBar: AppBar(
         title: const Text(
           'ToDo List',
@@ -37,28 +39,37 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBottomNavBar() => BottomAppBar(
-    clipBehavior: Clip.hardEdge,
-    notchMargin: 10,
-    padding: EdgeInsets.zero,
-    child: BottomNavigationBar(
-      backgroundColor: ColorManager.white,
-      currentIndex: currentindex,
-      onTap: (index) {
-        currentindex = index;
-        setState(() {});
-      },
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Tasks'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.settings_outlined), label: 'Settings'),
-      ],
-    ),
-  );
+        clipBehavior: Clip.hardEdge,
+        notchMargin: 10,
+        padding: EdgeInsets.zero,
+        child: BottomNavigationBar(
+          backgroundColor: ColorManager.white,
+          currentIndex: currentindex,
+          onTap: (index) {
+            currentindex = index;
+            setState(() {});
+          },
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Tasks'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.settings_outlined), label: 'Settings'),
+          ],
+        ),
+      );
 
   Widget buildFAB() => FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          showTaskBottomSheet();
+        },
         shape: StadiumBorder(
             side: BorderSide(color: ColorManager.white, width: 4)),
       );
+
+  showTaskBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => ThemeBottomSheet().show(),
+    );
+  }
 }
