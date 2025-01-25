@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
   showTaskBottomSheet() {
     showModalBottomSheet(
       context: context,
-      builder: (context) => ThemeBottomSheet().show(),
+      builder: (context) => ThemeBottomSheet(),
     );
   }
 }

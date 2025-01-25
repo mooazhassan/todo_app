@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/core/utils/app_style.dart';
 import 'package:todo_app/core/utils/color_manager.dart';
+import 'package:todo_app/core/utils/date_utils.dart';
 
-class ThemeBottomSheet extends StatelessWidget {
-  const ThemeBottomSheet({super.key});
+class ThemeBottomSheet extends StatefulWidget {
+  ThemeBottomSheet({super.key});
+
+  @override
+  State<ThemeBottomSheet> createState() => _ThemeBottomSheetState();
+}
+
+class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +46,20 @@ class ThemeBottomSheet extends StatelessWidget {
               style: LightAppStyle.dateLabel,
             ),
             SizedBox(height: 8),
-            Text(
-              '15 / 12 / 2024',
-              style: LightAppStyle.hint,
-              textAlign: TextAlign.center,
+            InkWell(
+              onTap: () {
+                showTaskDatePicker(context);
+              },
+              child: Text(
+                selectedDate.toFormatedDate,
+                style: LightAppStyle.hint,
+                textAlign: TextAlign.center,
+              ),
             ),
             const Spacer(),
             ElevatedButton(
-              style: ButtonStyle(
-
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorManager.blue,
               ),
               onPressed: () {},
               child: Text(
@@ -62,4 +75,15 @@ class ThemeBottomSheet extends StatelessWidget {
   }
 
   Widget show() => ThemeBottomSheet();
+
+  void showTaskDatePicker(context) async {
+    selectedDate = await showDatePicker(
+          context: context,
+          firstDate: DateTime.now(),
+          lastDate: DateTime.now().add(
+            Duration(days: 365),
+          ),
+        ) ??
+        selectedDate;
+  }
 }
